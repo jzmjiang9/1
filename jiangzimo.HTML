@@ -1,0 +1,734 @@
+<h1>jiangzimo</h1>
+<h2>ccc</h2>
+<img src="WIN_20260705_17_25_26_Pro.jpg"width=300>
+<a href="https://www.douyin.com/">
+                 <marquee>
+                 <h1> aaa</h1>
+                  </marquee>
+<a href="https://http://192.168.10.93/jiang.html">
+                 <marquee>
+                 <h1> aaa</h1>
+                  </marquee>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>💬 留言板</title>
+    <style>
+        /* ---------- 全局重置 & 字体 ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(145deg, #f7f9fc 0%, #e9edf4 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* ---------- 卡片容器 ---------- */
+        .container {
+            max-width: 780px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 36px;
+            padding: 32px 30px 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25),
+                inset 0 1px 2px rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            transition: all 0.2s ease;
+        }
+
+        /* ---------- 头部 ---------- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1e293b, #3b4b5e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.3px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header h1 span {
+            font-size: 30px;
+            -webkit-text-fill-color: initial;
+        }
+
+        .message-count {
+            font-size: 14px;
+            font-weight: 500;
+            color: #64748b;
+            background: rgba(100, 116, 139, 0.12);
+            padding: 6px 16px;
+            border-radius: 40px;
+            border: 1px solid rgba(100, 116, 139, 0.08);
+            backdrop-filter: blur(4px);
+            white-space: nowrap;
+        }
+
+        /* ---------- 表单 ---------- */
+        .form-card {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 24px;
+            padding: 22px 24px 24px;
+            margin-bottom: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .form-row .field {
+            flex: 1;
+            min-width: 140px;
+        }
+
+        .form-row .field.name-field {
+            flex: 0 0 160px;
+        }
+
+        .form-row .field.content-field {
+            flex: 2;
+            min-width: 200px;
+        }
+
+        .form-card label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 5px;
+            letter-spacing: 0.3px;
+        }
+
+        .form-card input,
+        .form-card textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid rgba(203, 213, 225, 0.6);
+            border-radius: 16px;
+            font-size: 15px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(4px);
+            transition: all 0.2s ease;
+            font-family: inherit;
+            color: #0f172a;
+            outline: none;
+        }
+
+        .form-card input:focus,
+        .form-card textarea:focus {
+            border-color: #6b7b8f;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 0 4px rgba(59, 75, 94, 0.08);
+        }
+
+        .form-card textarea {
+            resize: vertical;
+            min-height: 70px;
+            line-height: 1.5;
+        }
+
+        .form-card input::placeholder,
+        .form-card textarea::placeholder {
+            color: #94a3b8;
+            font-weight: 400;
+        }
+
+        .btn-submit {
+            align-self: flex-end;
+            padding: 12px 32px;
+            background: #1e293b;
+            color: white;
+            border: none;
+            border-radius: 40px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 10px rgba(30, 41, 59, 0.2);
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+            margin-top: 6px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .btn-submit:hover {
+            background: #0f172a;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(30, 41, 59, 0.3);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0px);
+            box-shadow: 0 4px 10px rgba(30, 41, 59, 0.2);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ---------- 留言列表 ---------- */
+        .messages-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding: 0 4px;
+        }
+
+        .messages-header h2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .btn-clear-all {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 6px 14px;
+            border-radius: 30px;
+            transition: all 0.15s ease;
+            border: 1px solid transparent;
+        }
+
+        .btn-clear-all:hover {
+            color: #ef4444;
+            background: rgba(239, 68, 68, 0.06);
+            border-color: rgba(239, 68, 68, 0.15);
+        }
+
+        .messages-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            max-height: 520px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .messages-list::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .messages-list::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .messages-list::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        /* ---------- 单条留言 ---------- */
+        .message-item {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 20px;
+            padding: 18px 22px 18px 24px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+            transition: all 0.15s ease;
+            animation: fadeSlideIn 0.3s ease both;
+        }
+
+        .message-item:hover {
+            background: rgba(255, 255, 255, 0.85);
+            border-color: rgba(203, 213, 225, 0.5);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+        }
+
+        @keyframes fadeSlideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .message-meta {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 6px;
+        }
+
+        .message-name {
+            font-weight: 700;
+            font-size: 16px;
+            color: #0f172a;
+            word-break: break-word;
+        }
+
+        .message-time {
+            font-size: 12px;
+            color: #94a3b8;
+            font-weight: 400;
+            letter-spacing: 0.2px;
+        }
+
+        .message-text {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #1e293b;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+            margin-top: 2px;
+        }
+
+        .message-actions {
+            display: flex;
+            flex-shrink: 0;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-delete {
+            background: transparent;
+            border: none;
+            color: #cbd5e1;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 12px;
+            transition: all 0.15s ease;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-delete:hover {
+            color: #ef4444;
+            background: rgba(239, 68, 68, 0.08);
+        }
+
+        /* ---------- 空状态 ---------- */
+        .empty-state {
+            text-align: center;
+            padding: 48px 20px 40px;
+            color: #94a3b8;
+        }
+
+        .empty-state .empty-icon {
+            font-size: 56px;
+            margin-bottom: 12px;
+            display: block;
+            opacity: 0.5;
+        }
+
+        .empty-state p {
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        /* ---------- 响应式 ---------- */
+        @media (max-width: 640px) {
+            .container {
+                padding: 22px 16px 30px;
+                border-radius: 28px;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .form-row .field.name-field {
+                flex: 1;
+                min-width: unset;
+            }
+
+            .form-row .field.content-field {
+                flex: 1;
+                min-width: unset;
+            }
+
+            .btn-submit {
+                width: 100%;
+                height: 48px;
+                margin-top: 4px;
+            }
+
+            .form-card {
+                padding: 18px 16px 20px;
+            }
+
+            .message-item {
+                padding: 14px 16px 14px 18px;
+                flex-wrap: wrap;
+            }
+
+            .message-actions {
+                width: 100%;
+                justify-content: flex-end;
+                margin-top: 4px;
+            }
+
+            .messages-list {
+                max-height: 400px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .message-count {
+                align-self: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" role="main">
+
+        <!-- 头部 -->
+        <div class="header">
+            <h1>
+                <span>💬</span> 留言板
+            </h1>
+            <span class="message-count" id="messageCount">0 条留言</span>
+        </div>
+
+        <!-- 发布表单 -->
+        <div class="form-card">
+            <form id="messageForm" autocomplete="off">
+                <div class="form-row">
+                    <div class="field name-field">
+                        <label for="nameInput">昵称</label>
+                        <input
+                        type="text"
+                        id="nameInput"
+                        placeholder="你的名字"
+                        maxlength="20"
+                        required
+                        />
+                    </div>
+                    <div class="field content-field">
+                        <label for="contentInput">留言内容</label>
+                        <textarea
+                        id="contentInput"
+                        placeholder="说点什么吧…"
+                        maxlength="500"
+                        required
+                        rows="2"
+                    ></textarea>
+                </div>
+                <button type="submit" class="btn-submit" id="submitBtn">
+                    ✦ 发布
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- 留言列表 -->
+    <div class="messages-header">
+        <h2>📋 全部留言</h2>
+        <button class="btn-clear-all" id="clearAllBtn" title="删除所有留言">清空全部</button>
+    </div>
+
+    <div class="messages-list" id="messagesList">
+        <!-- 由 JavaScript 动态渲染 -->
+    </div>
+
+</div>
+
+<script>
+    (function() {
+        'use strict';
+
+        // ---------- 存储 key ----------
+        const STORAGE_KEY = 'guestbook_messages';
+
+        // ---------- DOM 引用 ----------
+        const form = document.getElementById('messageForm');
+        const nameInput = document.getElementById('nameInput');
+        const contentInput = document.getElementById('contentInput');
+        const submitBtn = document.getElementById('submitBtn');
+        const messagesList = document.getElementById('messagesList');
+        const messageCount = document.getElementById('messageCount');
+        const clearAllBtn = document.getElementById('clearAllBtn');
+
+        // ---------- 数据 ----------
+        let messages = [];
+
+        // ---------- 工具：加载数据 ----------
+        function loadMessages() {
+            try {
+                const stored = localStorage.getItem(STORAGE_KEY);
+                if (stored) {
+                    const parsed = JSON.parse(stored);
+                    if (Array.isArray(parsed)) {
+                        messages = parsed;
+                        return;
+                    }
+                }
+            } catch (_) { /* ignore */ }
+            messages = [];
+        }
+
+        // ---------- 工具：保存数据 ----------
+        function saveMessages() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+            } catch (_) { /* ignore */ }
+        }
+
+        // ---------- 工具：生成短 ID ----------
+        function generateId() {
+            return Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+        }
+
+        // ---------- 工具：格式化时间 ----------
+        function formatTime(timestamp) {
+            const date = new Date(timestamp);
+            const pad = (n) => String(n).padStart(2, '0');
+            const Y = date.getFullYear();
+            const M = pad(date.getMonth() + 1);
+            const D = pad(date.getDate());
+            const h = pad(date.getHours());
+            const m = pad(date.getMinutes());
+            return `${Y}年${M}月${D}日 ${h}:${m}`;
+        }
+
+        // ---------- 渲染留言列表 ----------
+        function render() {
+            // 更新计数
+            const count = messages.length;
+            messageCount.textContent = count + ' 条留言';
+
+            if (count === 0) {
+                messagesList.innerHTML = `
+                        <div class="empty-state">
+                            <span class="empty-icon">📭</span>
+                            <p>还没有留言，快来写下第一条吧！</p>
+                        </div>
+                    `;
+                return;
+            }
+
+            // 按时间倒序（最新的在前）
+            const sorted = [...messages].sort((a, b) => b.timestamp - a.timestamp);
+
+            let html = '';
+            for (const msg of sorted) {
+                const timeStr = formatTime(msg.timestamp);
+                const name = escapeHtml(msg.name) || '匿名';
+                const content = escapeHtml(msg.content) || '（空白内容）';
+
+                html += `
+                        <div class="message-item" data-id="${msg.id}">
+                            <div class="message-content">
+                                <div class="message-meta">
+                                    <span class="message-name">${name}</span>
+                                    <span class="message-time">${timeStr}</span>
+                                </div>
+                                <div class="message-text">${content}</div>
+                            </div>
+                            <div class="message-actions">
+                                <button class="btn-delete" data-id="${msg.id}" aria-label="删除留言">✕</button>
+                            </div>
+                        </div>
+                    `;
+            }
+
+            messagesList.innerHTML = html;
+
+            // 绑定删除事件（委托）
+            messagesList.querySelectorAll('.btn-delete').forEach((btn) => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const id = this.getAttribute('data-id');
+                    if (id) {
+                        deleteMessage(id);
+                    }
+                });
+            });
+        }
+
+        // ---------- 简易防 XSS ----------
+        function escapeHtml(text) {
+            if (!text) return '';
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return String(text).replace(/[&<>"']/g, function(m) { return map[m]; });
+        }
+
+        // ---------- 添加留言 ----------
+        function addMessage(name, content) {
+            const trimmedName = name.trim();
+            const trimmedContent = content.trim();
+
+            if (!trimmedName || !trimmedContent) {
+                // 简单提示，表单 required 已做基础校验，此处防御
+                return false;
+            }
+
+            const newMsg = {
+                id: generateId(),
+                name: trimmedName.slice(0, 20),
+                content: trimmedContent.slice(0, 500),
+                timestamp: Date.now(),
+            };
+
+            messages.push(newMsg);
+            saveMessages();
+            render();
+            return true;
+        }
+
+        // ---------- 删除单条留言 ----------
+        function deleteMessage(id) {
+            const index = messages.findIndex((m) => m.id === id);
+            if (index === -1) return;
+            messages.splice(index, 1);
+            saveMessages();
+            render();
+        }
+
+        // ---------- 清空全部留言 ----------
+        function clearAllMessages() {
+            if (messages.length === 0) return;
+            if (confirm('确定要删除全部留言吗？此操作不可撤销。')) {
+                messages = [];
+                saveMessages();
+                render();
+            }
+        }
+
+        // ---------- 表单提交 ----------
+        function handleSubmit(e) {
+            e.preventDefault();
+
+            const name = nameInput.value;
+            const content = contentInput.value;
+
+            if (!name.trim() || !content.trim()) {
+                // 浏览器 required 已拦截，但以防万一
+                return;
+            }
+
+            const success = addMessage(name, content);
+            if (success) {
+                // 清空表单
+                nameInput.value = '';
+                contentInput.value = '';
+                // 让 textarea 恢复高度
+                contentInput.style.height = 'auto';
+                // 聚焦到内容区，方便连续输入
+                contentInput.focus();
+            }
+        }
+
+        // ---------- 初始化 ----------
+        function init() {
+            loadMessages();
+            render();
+
+            // 绑定表单提交
+            form.addEventListener('submit', handleSubmit);
+
+            // 清空全部按钮
+            clearAllBtn.addEventListener('click', clearAllMessages);
+
+            // 按下 Ctrl+Enter 快捷提交（在 textarea 中）
+            contentInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+                    e.preventDefault();
+                    form.dispatchEvent(new Event('submit'));
+                }
+            });
+
+            // 自动调整 textarea 高度 (随内容)
+            contentInput.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = Math.min(this.scrollHeight, 160) + 'px';
+            });
+
+            // 聚焦到第一个输入框
+            if (messages.length === 0) {
+                nameInput.focus();
+            } else {
+                contentInput.focus();
+            }
+
+            console.log('💬 留言板已启动，数据条数:', messages.length);
+        }
+
+        // 等 DOM 完全加载后执行
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+
+    })();
+</script>
+
+</body>
+</html>
+              
+</a>
+<style>body{background-color: aqua;text-align:canter}</style>
